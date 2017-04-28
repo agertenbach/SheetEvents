@@ -1,3 +1,13 @@
+===
+agertenbach -- changes:
+
+1) Added opening a page in new window or URL redirect as options
+2) Changed label to URL for redirect
+3) Limited events to only occur in analysis mode
+===
+
+
+
 SheetEvents, a Qlik Sense Extension for trigger actions when open a sheet
 
 ==================================
