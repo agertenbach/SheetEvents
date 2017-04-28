@@ -37,9 +37,8 @@ define( [
 			initialProperties: initProps,
 			snapshot: {canTakeSnapshot: false},
 			
-			controller: ['$scope', '$element', function ( $scope, $element ) {				
-				
-				
+			controller: ['$scope', '$element', function ( $scope, $element ) {
+			
 				if(_self){
 					var app = qlik.currApp();
 					
@@ -49,6 +48,7 @@ define( [
 					var val2 = null;
 					var softlock = null;
 					var vari = null;
+					var url = "'" + $scope.layout.props['buttonLink'] + "'";
 					tasksArray = [];
 										
 					for ( var i = 1; i <= 10; i++ ) {
@@ -125,6 +125,12 @@ define( [
 									tasksArray[i - 1] = 'app.variable.setContent(' + vari + ',' + val + ')';
 								}
 								break;
+							case "openWebsite":
+								_.isEmpty(url) || (url.startsWith("http://") || url.startsWith("https://") ? window.location.assign(url) : window.location.assign("http://" + url));
+								break;
+							case "openWebsiteNew":
+								_.isEmpty(url) || (url.startsWith("http://") || url.startsWith("https://") ? window.open(url) : window.open("http://" + url));
+								break;
 							default:
 								break;
 						}
@@ -156,17 +162,20 @@ define( [
 			}],
 			paint : function($element, layout) {
 				_self = this;
+				var mode = qlik.navigation.getMode();
 				//this execution must be executed the first time you access to the sheet during a session o after an F5
 				// the _self variable will be = null
 				//comptar == 0 only the first time you open the sheet during a session or after an F5
-				if (comptar == 0) {
+				if (comptar == 0 && mode=="analysis") {
 					comptar++;
 					var app = qlik.currApp();
+					
 
 					var fld = null;
 					var val = null;
 					var softlock = null;
 					var vari = null;
+					var url = _self.backendApi.model.layout.props['buttonLink'];
 
 					for ( var i = 1; i <= 10; i++ ) {
 
@@ -237,6 +246,12 @@ define( [
 								if ( !_.isEmpty(vari) ) {
 									app.variable.setContent(vari, val);
 								}
+								break;
+							case "openWebsite":
+								_.isEmpty(url) || (url.startsWith("http://") || url.startsWith("https://") ? window.location.assign(url) : window.location.assign("http://" + url));
+								break;
+							case "openWebsiteNew":
+								_.isEmpty(url) || (url.startsWith("http://") || url.startsWith("https://") ? window.open(url) : window.open("http://" + url));
 								break;
 							default:
 								break;

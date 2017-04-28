@@ -58,16 +58,18 @@ define( [
 	// Layout
 	// ****************************************************************************************
 	
-	var buttonLabel = {
-		ref: "props.buttonLabel",
-		label: "Label",
+	
+	var buttonLink = {
+		ref: "props.buttonLink",
+		label: "Link",
 		type: "string",
 		expression: "optional",
 		show: function () {
 			return true;
 		},
-		defaultValue: "Guided"
+		defaultValue: "Link URL"
 	};
+	
 	
 
 	// ****************************************************************************************
@@ -141,6 +143,14 @@ define( [
 		{
 			value: "unlockAll",
 			label: "Unlock All Selections"
+		},
+		{
+			value: "openWebsite",
+			label: "Auto-Navigate to URL"
+		},
+		{
+			value: "openWebsiteNew",
+			label: "Open Link in New Window"
 		}
 	];
 
@@ -982,9 +992,9 @@ define( [
 			},
 			layout: {
 				type: "items",
-				label: "Layout",
+				label: "Link",
 				items: {
-					label: buttonLabel,										
+					buttonLink: buttonLink
 				}
 			},
 			actionsBefore: {
